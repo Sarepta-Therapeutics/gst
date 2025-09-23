@@ -1,0 +1,151 @@
+---
+title: "O'Brien's Test"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{O'Brien's Test}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+
+## Background
+
+O'Brien's OLS statistic is the sum of the t-statistics that are obtained by standardizing the individual endpoints by their pooled within-group sample standard deviations. The GLS statistic is the weighted version of OLS.
+
+## Examples
+
+We provide the `obrien()` function to conduct O'Brien's statistical test on multiple endpoints across two (treatment) groups.
+
+The input dataset should have a treatment column and then one additional column for each outcome (i.e., wide-format).  For our examples we will use the `mtept` dataset that is included with the `multcomp` package.
+
+```{r}
+library(gst)
+library(dplyr)
+
+# load data from the `multcomp` package
+dat <- multcomp::mtept
+head(dat)
+```
+
+One important point is that O'Brien's test is directional in nature.  Therefore, it is important to adjust outcome metrics such that *similar directions indicate similar outcomes* -- e.g., if a positive effect for E4 and a negative effect for E1 both indicate a positive outcome for the patient, then signs should be reversed to align positive outcomes across endpoints.  In other words, **all endpoints should be either positively or negatively correlated (but not both).**
+
+```{r}
+# correlation between endpoints
+dat |> 
+  select(-treatment) |> 
+  cor()
+```
+
+For this data, we can see E1, E2, and E3 are positively correlated.  However, E4 is negatively correlated with the other endpoints.  Therefore, we need to reverse the direction of E4 before testing.
+
+```{r}
+# reverse E4
+dat <- dat |>
+  mutate(
+    E4 = -E4
+  )
+
+# correlation between endpoints
+dat |> 
+  select(-treatment) |> 
+  cor()
+```
+
+### Example 1 - OLS with equal variances
+
+For example, let's perform O'Brien's test using the OLS method with equal variances (default).
+
+```{r}
+results <- dat |>
+  obrien(
+    endpoint_vars = c("E1", "E2", "E3", "E4"),
+    treatment_vars = "treatment",
+    method = "ols"
+  )
+print(data.frame(results[-5]))
+```
+
+### Example 2 - GLS with equal variances
+
+```{r}
+results <- dat |>
+  obrien(
+    endpoint_vars = c("E1", "E2", "E3", "E4"),
+    treatment_vars = "treatment",
+    method = "gls"
+  )
+print(data.frame(results[-5]))
+```
+
+### Example 3 - Ranksum with equal variances
+
+```{r}
+results <- dat |>
+  obrien(
+    endpoint_vars = c("E1", "E2", "E3", "E4"),
+    treatment_vars = "treatment",
+    method = "ranksum" 
+  )
+print(data.frame(results[-5]))
+```
+
+### Example 4 - All Endpoints, All Methods
+
+In this example, we perform the OLS equal variances method on all possible combinations of the 4 endpoints. 
+
+```{r}
+# generate all possible combinations of the 4 endpoints (1 = include; 0 = exclude)
+opt_mat <- expand.grid(0:1, 0:1, 0:1, 0:1)
+opt_mat <- opt_mat |> dplyr::arrange(rowSums(opt_mat))
+endpoints <- c("E1", "E2", "E3", "E4")
+
+# run o'brien's test on each combination of endpoints
+results <- 
+  purrr::map_dfr(
+    2:nrow(opt_mat),
+    function(i) {
+      my_endpoints <- endpoints[ opt_mat[i, ] == 1 ]  # identify endpoints to test
+      x <- dat |>
+        obrien(
+          endpoint_vars = my_endpoints,
+          treatment_vars = "treatment",
+          method = "ols" 
+        )
+      x$R <- NULL    # ignore correlation matrix in output (not needed)
+      x |>
+        dplyr::as_tibble() |>
+        dplyr::mutate(
+          endpoints = paste(my_endpoints, collapse = ", "),
+          method = "ols"
+        )
+    }
+  )
+
+# display results in a nice table
+results |>
+  dplyr::transmute(
+    Endpoints = endpoints,
+    DF = df,
+    `Test Statistic` = round(statistic, 2),
+    `P-value` = round(pvalue, 3)
+  ) |>
+  gt::gt() |>
+  gt::fmt_auto() |>
+  gt::tab_header(
+    "O'Brien's OLS Test on All Endpoint Combinations"
+  )
+
+```
+
+### Additional Considerations
+
+Example 4 provides a nice illustration of how including additional endpoints impact the global statistical test (GST).  In particular, E3 is not significant ($\alpha = 0.05$) on it's own, but is significant when considered jointly with any other endpoint. 
+
+Another observation is that if we had not reversed the direction of E4, we would have seen a non-significant result for the combination of {E1, E4} despite them both being significant individually and jointly after reversing E4.

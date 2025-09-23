@@ -1,0 +1,57 @@
+Package: gst
+Title: Global Statistical Test
+Version: 0.3.0
+Authors@R: c(
+    person("Lerong", "Li", , "leli@sarepta.com", role = c("aut", "cre", "led")),
+    person("Anthony", "Pileggi", , "APileggi@sarepta.com", role = c("aut")),
+    person("Xiaolong", "Luo", , "XLuo@sarepta.com", role = c("aut")),
+    person("Xiao", "Ni", , "xni@sarepta.com", role = c("aut", "pdr")),
+    person("Sarepta Therapeutics Inc.", , role = c("cph", "fnd")),
+    person("Stephen", "Knapp", , "sknapp@sarepta.com", 
+           role = c("ctb"),
+           comment = c(ORCID = "0000-0002-5101-4555")),
+    person("Preston", "Burns", , "PrBurns@Sarepta.com", role = c("ctb"))
+    )
+Description: Tools to evaluate and design Global Statistical Tests (GST). The package also provides a GUI to draw forestplot of multiple endpoints.
+License: file LICENSE
+Encoding: UTF-8
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 7.3.2
+Imports: 
+    dplyr,
+    forestploter,
+    magrittr,
+    MASS,
+    multcomp,
+    stats,
+    parallel,
+    readr,
+    rhandsontable,
+    shiny,
+    shinyWidgets,
+    htmltools,
+    tidyr,
+    plotly,
+    grDevices,
+    grid,
+    pwr,
+    DT,
+    purrr,
+    tibble,
+    bslib,
+    bsicons,
+    datapasta,
+    sortable,
+    stringr,
+    rclipboard,
+    ggplot2,
+    mvtnorm,
+    reactable,
+    rlang
+Suggests: 
+    knitr,
+    rmarkdown,
+    gt,
+    testthat (>= 3.0.0)
+VignetteBuilder: knitr
+Config/testthat/edition: 3
