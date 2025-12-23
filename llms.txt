@@ -1,0 +1,109 @@
+# gst
+
+Assessing sample size and power, and presenting consolidated evidence
+
+## Description
+
+The {gst} package provides a toolbox for assessing sample size and power
+for Global Statistical Tests across a variety of scenarios, and
+presenting consolidated evidence using a forest plot.
+
+## Installation
+
+The package is not yet available on CRAN. To install the development
+version of the package from Github run:
+
+    pak::pak("Sarepta-Therapeutics/gst")
+
+## Shiny Apps
+
+The {gst} package includes two shiny applications. For details on how to
+use the apps, please review the vignettes.
+
+### GST Power App
+
+``` r
+library(gst)
+gst_power_app()
+```
+
+### Make Forestplot App
+
+``` r
+library(gst)
+make_forestplot_app()
+```
+
+# Package index
+
+## All functions
+
+- [`alert_icon()`](https://sarepta-therapeutics.github.io/gst/reference/alert_icon.md)
+  : Alert icon
+- [`app_sys()`](https://sarepta-therapeutics.github.io/gst/reference/app_sys.md)
+  : Access files in the current app
+- [`cor_cs()`](https://sarepta-therapeutics.github.io/gst/reference/cor_cs.md)
+  : Create a compound-symmetric correlation matrix
+- [`data_as_code()`](https://sarepta-therapeutics.github.io/gst/reference/data_as_code.md)
+  : Convert data.frame to R code that creates identical dataset
+- [`esWidgetServer()`](https://sarepta-therapeutics.github.io/gst/reference/esWidgetServer.md)
+  : Sidebar Effect Size Server
+- [`esWidgetUI()`](https://sarepta-therapeutics.github.io/gst/reference/esWidgetUI.md)
+  : Sidebar Effect Size UI
+- [`forest_data()`](https://sarepta-therapeutics.github.io/gst/reference/forest_data.md)
+  : Forestplot Example Data
+- [`forest_import_csv()`](https://sarepta-therapeutics.github.io/gst/reference/forest_import_csv.md)
+  : Import forest plot data from csv file
+- [`forest_plot()`](https://sarepta-therapeutics.github.io/gst/reference/forest_plot.md)
+  : Draw forest plot
+- [`forest_reprex()`](https://sarepta-therapeutics.github.io/gst/reference/forest_reprex.md)
+  : Create reproducible code for current forestplot
+- [`forest_suggest_params()`](https://sarepta-therapeutics.github.io/gst/reference/forest_suggest_params.md)
+  : Suggest parameters for a forest_plot
+- [`get_n()`](https://sarepta-therapeutics.github.io/gst/reference/get_n.md)
+  : Calculate sample size
+- [`get_oes()`](https://sarepta-therapeutics.github.io/gst/reference/get_oes.md)
+  : Calculate operational effect size
+- [`get_power()`](https://sarepta-therapeutics.github.io/gst/reference/get_power.md)
+  : Calculate Power
+- [`gstTippingPoint_ui()`](https://sarepta-therapeutics.github.io/gst/reference/gstTippingPoint_ui.md)
+  : Effect size tipping point calculation
+- [`gst_power_app()`](https://sarepta-therapeutics.github.io/gst/reference/gst_power_app.md)
+  : Launch the GST Power App
+- [`info_icon()`](https://sarepta-therapeutics.github.io/gst/reference/info_icon.md)
+  : Info icon
+- [`make_forestplot_app()`](https://sarepta-therapeutics.github.io/gst/reference/make_forestplot_app.md)
+  : A Shiny app to make a forest plot
+- [`obrien()`](https://sarepta-therapeutics.github.io/gst/reference/obrien.md)
+  : O’Brien test
+- [`obrien_plus()`](https://sarepta-therapeutics.github.io/gst/reference/obrien_plus.md)
+  : O'Brien Plus: Analytical Power for Joint AND Any Individual Endpoint
+- [`obt()`](https://sarepta-therapeutics.github.io/gst/reference/obt.md)
+  : Perform Obrien truncated closed testing
+- [`p_combine()`](https://sarepta-therapeutics.github.io/gst/reference/p_combine.md)
+  : P-value combination method
+- [`power2_sever()`](https://sarepta-therapeutics.github.io/gst/reference/power2_sever.md)
+  : OLS Power Server
+- [`power2_ui()`](https://sarepta-therapeutics.github.io/gst/reference/power2_ui.md)
+  : OLS Power UI
+- [`rmnv()`](https://sarepta-therapeutics.github.io/gst/reference/rmnv.md)
+  : Simulate from a Multivariate Normal Distribution
+- [`sartheme()`](https://sarepta-therapeutics.github.io/gst/reference/sartheme.md)
+  : Sarepta theming function (ported over from Sarappta)
+- [`sim_power()`](https://sarepta-therapeutics.github.io/gst/reference/sim_power.md)
+  : Calculate Power by simulation
+- [`tooltip_label()`](https://sarepta-therapeutics.github.io/gst/reference/tooltip_label.md)
+  : Custom label with optional tooltip icons
+
+# Articles
+
+### All vignettes
+
+- [Make Forestplot
+  App](https://sarepta-therapeutics.github.io/gst/articles/forestplot.md):
+- [GST Power
+  App](https://sarepta-therapeutics.github.io/gst/articles/gst_power_app.md):
+- [O'Brien's
+  Test](https://sarepta-therapeutics.github.io/gst/articles/obrien.md):
+- [Reference for \`gst\`
+  package](https://sarepta-therapeutics.github.io/gst/articles/reference.md):
