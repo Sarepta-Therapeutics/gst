@@ -14,9 +14,11 @@ Authors@R: c(
     )
 Description: Tools to evaluate and design Global Statistical Tests (GST). The package also provides a GUI to draw forestplot of multiple endpoints.
 License: file LICENSE
+URL: https://sarepta-therapeutics.github.io/gst, https://github.com/Sarepta-Therapeutics/gst/
+BugReports: https://github.com/Sarepta-Therapeutics/gst/issues
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
-RoxygenNote: 7.3.2
+RoxygenNote: 7.3.3
 Imports: 
     dplyr,
     forestploter,
